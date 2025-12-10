@@ -151,9 +151,7 @@ export async function createPlaylist(userId, name) {
     );
 
     if (!response.ok) {
-        throw new Error(
-            `Fallo al crear la playlist: ${response.status}. ¿Scopes correctos?`
-        );
+        throw new Error(`Fallo al crear la playlist: ${response.status}`);
     }
 
     const data = await response.json();
