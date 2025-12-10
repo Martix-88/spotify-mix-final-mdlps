@@ -51,13 +51,7 @@ export default function MoodWidget({ onSelect, selectedMoods = initialMoods }) {
                 Moods y Características de Audio
             </h3>
 
-            {/* 2. SLIDERS PARA CONTROL FINO. NOTA: Para poder hacer el slider obtuve ayuda:
-                - Consulte algunas páginas como:
-                  -- https://www.syncfusion.com/react-components/react-slider
-                  -- https://mui.com/material-ui/react-slider/
-                  -- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range
-                - Y para perfeccionar el estilo Tailwind CSS pedí ayuda a Gemini AI
-            */}
+            {/* 2. SLIDERS PARA CONTROL FINO*/}
             <div className="mt-4 pt-4 border-t space-y-6">
                 <h4 className="text-md font-semibold text-gray-900 mb-4">
                     Ajuste de Parámetros (0-100):
