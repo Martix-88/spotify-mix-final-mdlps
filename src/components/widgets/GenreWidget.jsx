@@ -154,7 +154,7 @@ export default function GenreWidget({ onSelect, selectedGenres }) {
         onSelect(updatedList);
     };
 
-    // 🔄 LÓGICA DE FILTRADO SIN USEMEMO (se ejecuta en cada renderizado)
+    // Lógica de filtrado
     let filteredGenres = GENRES;
 
     if (query) {
@@ -163,7 +163,6 @@ export default function GenreWidget({ onSelect, selectedGenres }) {
             genre.toLowerCase().includes(lowerCaseQuery)
         );
     }
-    // -------------------------------------------------------------------
 
     return (
         <div className="p-4 bg-[#ffb395] rounded-xl shadow-xl border border-[#ffb395]">
