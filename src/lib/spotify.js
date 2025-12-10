@@ -111,8 +111,8 @@ export async function getUserProfileId() {
     const token = getAccessToken();
     if (!token) throw new Error('Token de acceso no disponible.');
 
-    // Endpoint: GET /me
-    const response = await fetch('https://api.spotify.com/v1/me', {
+    const API_BASE = 'https://api.spotify.com/v1';
+    const response = await fetch(`${API_BASE}/me`, {
         headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -133,25 +133,25 @@ export async function createPlaylist(userId, name) {
     const token = getAccessToken();
     if (!token) throw new Error('Token de acceso no disponible.');
 
-    // Endpoint: POST /users/{user_id}/playlists
-    const response = await fetch(
-        `https://api.spotify.com/v1/artists//users/${userId}/playlists`,
-        {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: name,
-                description: 'Playlist generada por Spotify Taste Mixer.',
-                public: true, // O false si solo queremos playlists privadas
-            }),
-        }
-    );
+    const API_BASE = 'https://api.spotify.com/v1';
+
+    const response = await fetch(`${API_BASE}/users/${userId}/playlists`, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            name: name,
+            description: 'Playlist generada por Spotify Taste Mixer.',
+            public: true,
+        }),
+    });
 
     if (!response.ok) {
-        throw new Error(`Fallo al crear la playlist: ${response.status}`);
+        throw new Error(
+            `Fallo al crear la playlist: ${response.status}. Asegúrate de haber iniciado sesión con los permisos necesarios (playlist-modify-public/private).`
+        );
     }
 
     const data = await response.json();
@@ -167,7 +167,7 @@ export async function addTracksToPlaylist(playlistId, trackUris) {
 
     // Endpoint: POST /playlists/{playlist_id}/tracks
     const response = await fetch(
-        `https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/playlists/${playlistId}/tracks`,
+        `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
         {
             method: 'POST',
             headers: {
