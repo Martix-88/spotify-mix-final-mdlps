@@ -37,7 +37,7 @@ export default function DecadeWidget({ onSelect, selectedDecades }) {
     };
 
     return (
-        <div className="p-4 bg-[#faafa8] rounded-xl shadow-xl border border-red-100">
+        <div className="p-4 bg-[#ffb395] rounded-xl shadow-xl border border-[#ffb395]">
             <h3 className="text-2xl font-bold mb-4 text-gray-900 border-b pb-2 border-gray-200">
                 Selecciona Tus Décadas Favoritas
             </h3>
