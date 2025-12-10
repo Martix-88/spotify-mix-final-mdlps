@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -25,8 +24,8 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+-   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
@@ -34,8 +33,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-=======
+# Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
 # spotify-mix-final-mdlps
+
 Práctica final para la asignatura de Programación Web I, Cliente
->>>>>>> 93538941d57885ac2d2721466989527548e06ffe
+
+## NOTA
+
+Para los sliders del control del mood obtuve ayuda: - Consulté algunas páginas como:
+-- https://www.syncfusion.com/react-components/react-slider
+-- https://mui.com/material-ui/react-slider/
+-- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range
+
+    - Y para perfeccionar el estilo Tailwind CSS y algunas funcionalidades que me dieron quebraderos de cabeza pedí ayuda a Gemini AI
