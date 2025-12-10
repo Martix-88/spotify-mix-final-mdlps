@@ -42,8 +42,9 @@ Práctica final para la asignatura de Programación Web I, Cliente
 ## NOTA
 
 Para los sliders del control del mood obtuve ayuda: - Consulté algunas páginas como:
--- https://www.syncfusion.com/react-components/react-slider
--- https://mui.com/material-ui/react-slider/
--- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range
 
-    - Y para perfeccionar el estilo Tailwind CSS y algunas funcionalidades que me dieron quebraderos de cabeza pedí ayuda a Gemini AI
+-   https://www.syncfusion.com/react-components/react-slider
+-   https://mui.com/material-ui/react-slider/
+-   https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range
+
+Y para perfeccionar el estilo Tailwind CSS y algunas funcionalidades que me dieron quebraderos de cabeza pedí ayuda a Gemini AI
