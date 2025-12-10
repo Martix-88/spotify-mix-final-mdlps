@@ -50,9 +50,7 @@ export default function TrackCard({
                 });
 
                 if (response.status === 401) {
-                    throw new Error(
-                        "Token expirado o inválido. (Asegúrate de tener el scope 'user-library-read' en la autenticación)"
-                    );
+                    throw new Error('Token expirado o inválido');
                 }
                 if (!response.ok) {
                     const data = await response.json();
@@ -118,8 +116,7 @@ export default function TrackCard({
     return (
         <div className="p-4 bg-white rounded-xl shadow-xl border border-gray-300">
             <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2 border-gray-200">
-                📚 Selecciona tus canciones favoritas ({TRACK_LIMIT} más
-                recientes)
+                Selecciona tus canciones favoritas ({TRACK_LIMIT} más recientes)
             </h3>
             <p className="text-sm text-gray-500 mb-4">
                 Haz click en una canción para añadirla como referencia (máx.{' '}
