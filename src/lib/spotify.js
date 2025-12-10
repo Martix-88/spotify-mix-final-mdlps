@@ -5,36 +5,78 @@ export async function generatePlaylist(preferences) {
     const token = getAccessToken();
     let allTracks = [];
 
+    // Verificación de token, crucial para que las llamadas funcionen
+    if (!token) {
+        console.error('Token de acceso no disponible.');
+        return [];
+    }
+
     // 1. Obtener top tracks de artistas seleccionados
     for (const artist of artists) {
-        const tracks = await fetch(
-            `https://api.spotify.com/v1/artists/${artist.id}/top-tracks?market=ES`,
-            {
-                headers: { Authorization: `Bearer ${token}` },
+        try {
+            const response = await fetch(
+                `https://api.spotify.com/v1/artists/${artist.id}/top-tracks?market=ES`,
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
+
+            if (!response.ok) {
+                console.error(
+                    `Error (${response.status}) al buscar Top Tracks para el artista ${artist.id}.`
+                );
+                continue; // Saltar al siguiente artista
             }
-        );
-        const data = await tracks.json();
-        allTracks.push(...data.tracks);
+
+            const data = await response.json();
+
+            allTracks.push(...(data.tracks || []));
+        } catch (error) {
+            console.error(
+                `Fallo inesperado al buscar top tracks para ${artist.id}:`,
+                error
+            );
+        }
     }
 
     // 2. Buscar por géneros
     for (const genre of genres) {
-        const results = await fetch(
-            `https://api.spotify.com/v1/search?type=track&q=genre:${genre}&limit=20`,
-            {
-                headers: { Authorization: `Bearer ${token}` },
+        try {
+            const response = await fetch(
+                `https://api.spotify.com/v1/search?type=track&q=genre:${genre}&limit=20`,
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
+
+            if (!response.ok) {
+                console.error(
+                    `Error (${response.status}) al buscar tracks por género ${genre}.`
+                );
+                continue; // Saltar al siguiente género
             }
-        );
-        const data = await results.json();
-        allTracks.push(...data.tracks.items);
+
+            const data = await response.json();
+
+            allTracks.push(...(data?.tracks?.items || []));
+        } catch (error) {
+            console.error(
+                `Fallo inesperado al buscar por género ${genre}:`,
+                error
+            );
+        }
     }
 
     // 3. Filtrar por década
     if (decades.length > 0) {
         allTracks = allTracks.filter((track) => {
+            // Verificación de nulidad en el objeto track
+            if (!track || !track.album || !track.album.release_date)
+                return false;
+
             const year = new Date(track.album.release_date).getFullYear();
             return decades.some((decade) => {
-                const decadeStart = parseInt(decade);
+                const decadeStart = parseInt(decade, 10);
                 return year >= decadeStart && year < decadeStart + 10;
             });
         });
@@ -44,11 +86,16 @@ export async function generatePlaylist(preferences) {
     if (popularity) {
         const [min, max] = popularity;
         allTracks = allTracks.filter(
-            (track) => track.popularity >= min && track.popularity <= max
+            // Verificación de nulidad en track.popularity
+            (track) =>
+                track &&
+                track.popularity != null &&
+                track.popularity >= min &&
+                track.popularity <= max
         );
     }
 
-    // 5. Eliminar duplicados y limitar a 30 canciones
+    // 5. Eliminar duplicados y limitar a 30 canciones (Tu lógica original)
     const uniqueTracks = Array.from(
         new Map(allTracks.map((track) => [track.id, track])).values()
     ).slice(0, 30);
