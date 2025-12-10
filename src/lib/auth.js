@@ -73,3 +73,44 @@ export function logout() {
     localStorage.removeItem('spotify_refresh_token');
     localStorage.removeItem('spotify_token_expiration');
 }
+
+// Refrescar el token de acceso usando el refresh token
+export async function refreshAccessToken() {
+    const refreshToken = localStorage.getItem('spotify_refresh_token');
+
+    if (!refreshToken) {
+        console.error('No refresh token found. User must log in again.');
+        return false;
+    }
+
+    try {
+        // Llama a la API Route que tienes definida en /api/refresh-token/route.js
+        const response = await fetch('/api/refresh-token', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ refresh_token: refreshToken }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error(
+                'Refresh token failed:',
+                errorData.error || response.statusText
+            );
+            // Si el refresh token falla (ej. expiró o fue revocado), limpiamos todo
+            logout();
+            return false;
+        }
+
+        const data = await response.json();
+
+        // Usar la función saveTokens ya definida en este archivo
+        saveTokens(data.access_token, refreshToken, data.expires_in);
+
+        console.log('Token successfully refreshed.');
+        return true;
+    } catch (error) {
+        console.error('Error during token refresh:', error);
+        return false;
+    }
+}
